@@ -206,6 +206,10 @@ import EarnDeductMasters from "./components/Masters/EarnDeductMasters";
 import SlabTemplate from "./components/SlabsTemplate/SlabTemplate";
 import Departmensmasters from "./components/Masters/DepartmentMasters";
 import LeaveApplyRequestHigher from "./components/Home Page/LeaveRequestshigher";
+import LeaveRequestManager from "./components/Home Page/LeaveRequestManager";
+import LeaveRequestEmployee from "./components/Home Page/LeaveRequestEmployee";
+import CompanyMasters from "./components/Masters/CompanyMasters";
+import AttendanceHome from "./components/Home Page/Attendance";
 
 const store = createStore(entityReducer);
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -223,7 +227,7 @@ root.render(
           <Route path="/loginemployee" element={<LoginOthers />} />
           <Route path="/HomePage" element={<HomePage/>}></Route>
           <Route path="/Masters" element={<MastersTemplate />} />
-          <Route path="/CompanyForm01" element={<CompanyForm01/>}/>
+          <Route path="/CompanyForm01" element={<CompanyMasters/>}/>
           <Route path="/PayBranchForm01" element={<PayBranchForm01/>}/>
           <Route path="/PaymEmployeeMasters" element={<PaymEmployeeMasters/>}/>
           <Route path="/Departmensmasters" element={<Departmensmasters/>}/>
@@ -235,7 +239,13 @@ root.render(
           <Route path="/Group/addinfos" element={<AddInfos/>}/>
           <Route path="/EmployeeShift" element={<GroupShift/>}/>
           <Route path="/SlabTemplate" element={<SlabTemplate/>}/>
-          <Route path="/LeaveApplyRequestHigher" element={<LeaveApplyRequestHigher/>}/>
+          <Route path="/LeaveApply" element={<LeaveApplyRequestHigher/>}/>
+          <Route path="/LeaveRequestManager" element={<LeaveRequestManager/>}/>
+          <Route path="/LeaveRequestEmployee" element={<LeaveRequestEmployee/>}/>
+          <Route path="/Attendance" element={<AttendanceHome/>}/>
+          <Route path="/AssetsTable" element={<AssetsTable />}></Route>
+          <Route path="/EarnDeductTable" element={<EarnDeductTable />}></Route>
+          <Route path="/PaymBranchtable" element={<PaymBranchtable />}></Route>
           {/* <Route path="/layout" element={<Layoutcomp />} />
           <Route path="/att" element={<BasicDateCalendar />} />
           <Route path="/home" element={<ServiceCard />}></Route>

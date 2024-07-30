@@ -19,14 +19,12 @@ import ArticleIcon from '@mui/icons-material/Article';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import InfoIcon from '@mui/icons-material/Info';
-import { useNavigate } from "react-router-dom";
-import { useAppStore } from "./appStore";
 import HomeIcon from '@mui/icons-material/Home';
 import Collapse from "@mui/material/Collapse";
-import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import { Typography } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
+import { useAppStore } from "./appStore";
 
 const drawerWidth = 225;
 
@@ -68,6 +66,7 @@ const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
+  zIndex: theme.zIndex.drawer,
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),
@@ -108,10 +107,9 @@ export default function Sidenav() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <Box height={30} />
-
+      
       {/* Permanent Drawer for Large Screens */}
       <Drawer variant="permanent" open={open} sx={{ display: { xs: 'none', sm: 'block' } }}>
         <DrawerHeader>
@@ -120,19 +118,16 @@ export default function Sidenav() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-       
-       
         <List>
-        <ListItem disablePadding sx={{ display: "block" }}>
-          <Box sx={{ display: "flex", alignItems: "center",marginLeft:2 }}>
-  <Avatar>{sessionStorage.getItem("user").charAt(0)}</Avatar>
-  <Typography color={"white"} sx={{ margin: 2 , }}>
-    {sessionStorage.getItem("user")}
-  </Typography>
-</Box>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <Box sx={{ display: "flex", alignItems: "center", marginLeft: 2 }}>
+              <Avatar>{sessionStorage.getItem("user").charAt(0)}</Avatar>
+              <Typography color={"white"} sx={{ margin: 2 }}>
+                {sessionStorage.getItem("user")}
+              </Typography>
+            </Box>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/")}>
-            
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -221,10 +216,10 @@ export default function Sidenav() {
                       justifyContent: open ? "initial" : "center",
                       px: 2.5,
                       transition: "transform 0.4s ease-in-out",
-                "&:hover": {
-                  backgroundColor: "#7f7f7f",
-                  transform: "scale(1.10)",
-                },
+                      "&:hover": {
+                        backgroundColor: "#7f7f7f",
+                        transform: "scale(1.10)",
+                      },
                     }}
                   >
                     <ListItemText primary="Payslip" sx={{ opacity: open ? 1 : 0, color: "white", marginLeft: "50px" }} />
@@ -279,7 +274,7 @@ export default function Sidenav() {
           {open && (
             <Collapse in={openLeave} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/leave/apply")}>
+                <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/LeaveApply")}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
@@ -295,7 +290,7 @@ export default function Sidenav() {
                     <ListItemText primary="Leave Apply" sx={{ opacity: open ? 1 : 0, color: "white", marginLeft: "50px" }} />
                   </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/LeaveApplyRequestHigher")}>
+                <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/LeaveRequestManager")}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
@@ -308,39 +303,13 @@ export default function Sidenav() {
                       },
                     }}
                   >
-                    <ListItemText primary="Leave Requests" sx={{ opacity: open ? 1 : 0, color: "white", marginLeft: "49px" }} />
+                    <ListItemText primary="Leave Requests" sx={{ opacity: open ? 1 : 0, color: "white", marginLeft: "50px" }} />
                   </ListItemButton>
                 </ListItem>
               </List>
             </Collapse>
           )}
-          <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/reports")}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-                transition: "transform 0.4s ease-in-out",
-                "&:hover": {
-                  backgroundColor: "#7f7f7f",
-                  transform: "scale(1.10)",
-                },
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  color: "white",
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <ArticleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Reports" sx={{ opacity: open ? 1 : 0, color: "white" }} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/")}>
+          <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/info")}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -363,20 +332,16 @@ export default function Sidenav() {
               >
                 <InfoIcon />
               </ListItemIcon>
-              <ListItemText primary="Helpdesk" sx={{ opacity: open ? 1 : 0, color: "white" }} />
+              <ListItemText primary="Info" sx={{ opacity: open ? 1 : 0, color: "white" }} />
             </ListItemButton>
           </ListItem>
         </List>
       </Drawer>
 
-      {/* Temporary Drawer for Mobile View */}
+      {/* Temporary Drawer for Small Screens */}
       <TemporaryDrawer
-        variant="temporary"
-        open={!open}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true,
-        }}
+        variant="persistent"
+        open={open}
         sx={{ display: { xs: 'block', sm: 'none' } }}
       >
         <DrawerHeader>
@@ -386,38 +351,71 @@ export default function Sidenav() {
         </DrawerHeader>
         <Divider />
         <List>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <Box sx={{ display: "flex", alignItems: "center", marginLeft: 2 }}>
+              <Avatar>{sessionStorage.getItem("user").charAt(0)}</Avatar>
+              <Typography color={"white"} sx={{ margin: 2 }}>
+                {sessionStorage.getItem("user")}
+              </Typography>
+            </Box>
+          </ListItem>
           <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/")}>
             <ListItemButton
               sx={{
                 minHeight: 48,
-                justifyContent: "center",
+                justifyContent: open ? "initial" : "center",
                 px: 2.5,
                 transition: "transform 0.4s ease-in-out",
                 "&:hover": {
                   backgroundColor: "#7f7f7f",
                   transform: "scale(1.10)",
                 },
-               
               }}
             >
               <ListItemIcon
                 sx={{
                   color: "white",
                   minWidth: 0,
-                  mr: "auto",
+                  mr: open ? 3 : "auto",
                   justifyContent: "center",
                 }}
               >
                 <DashboardIcon />
               </ListItemIcon>
-              <ListItemText primary="Dashboard" sx={{ color: "white" }} />
+              <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0, color: "white" }} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/HomePage")}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+                transition: "transform 0.4s ease-in-out",
+                "&:hover": {
+                  backgroundColor: "#7f7f7f",
+                  transform: "scale(1.10)",
+                },
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  color: "white",
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Home" sx={{ opacity: open ? 1 : 0, color: "white" }} />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }} onClick={handleSalaryClick}>
             <ListItemButton
               sx={{
                 minHeight: 48,
-                justifyContent: "center",
+                justifyContent: open ? "initial" : "center",
                 px: 2.5,
                 transition: "transform 0.4s ease-in-out",
                 "&:hover": {
@@ -430,24 +428,24 @@ export default function Sidenav() {
                 sx={{
                   color: "white",
                   minWidth: 0,
-                  mr: "auto",
+                  mr: open ? 3 : "auto",
                   justifyContent: "center",
                 }}
               >
                 <PaymentIcon />
               </ListItemIcon>
-              <ListItemText primary="Salary" sx={{ color: "white" }} />
-              {openSalary ? <ExpandLessIcon sx={{ color: "white" }} /> : <ExpandMoreIcon sx={{ color: "white" }} />}
+              <ListItemText primary="Salary" sx={{ opacity: open ? 1 : 0, color: "white" }} />
+              {open && (openSalary ? <ExpandLessIcon sx={{ color: "white" }} /> : <ExpandMoreIcon sx={{ color: "white" }} />)}
             </ListItemButton>
           </ListItem>
-          {openSalary && (
+          {open && (
             <Collapse in={openSalary} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/salary/view")}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
-                      justifyContent: "center",
+                      justifyContent: open ? "initial" : "center",
                       px: 2.5,
                       transition: "transform 0.4s ease-in-out",
                       "&:hover": {
@@ -456,14 +454,14 @@ export default function Sidenav() {
                       },
                     }}
                   >
-                    <ListItemText primary="Payslip" sx={{ color: "white", marginLeft: "50px" }} />
+                    <ListItemText primary="Payslip" sx={{ opacity: open ? 1 : 0, color: "white", marginLeft: "50px" }} />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/salary/history")}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
-                      justifyContent: "center",
+                      justifyContent: open ? "initial" : "center",
                       px: 2.5,
                       transition: "transform 0.4s ease-in-out",
                       "&:hover": {
@@ -472,7 +470,7 @@ export default function Sidenav() {
                       },
                     }}
                   >
-                    <ListItemText primary="Loans" sx={{ color: "white", marginLeft: "50px" }} />
+                    <ListItemText primary="Loans" sx={{ opacity: open ? 1 : 0, color: "white", marginLeft: "50px" }} />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -482,7 +480,7 @@ export default function Sidenav() {
             <ListItemButton
               sx={{
                 minHeight: 48,
-                justifyContent: "center",
+                justifyContent: open ? "initial" : "center",
                 px: 2.5,
                 transition: "transform 0.4s ease-in-out",
                 "&:hover": {
@@ -495,24 +493,24 @@ export default function Sidenav() {
                 sx={{
                   color: "white",
                   minWidth: 0,
-                  mr: "auto",
+                  mr: open ? 3 : "auto",
                   justifyContent: "center",
                 }}
               >
                 <CalendarTodayIcon />
               </ListItemIcon>
-              <ListItemText primary="Leave" sx={{ color: "white" }} />
-              {openLeave ? <ExpandLessIcon sx={{ color: "white" }} /> : <ExpandMoreIcon sx={{ color: "white" }} />}
+              <ListItemText primary="Leave" sx={{ opacity: open ? 1 : 0, color: "white" }} />
+              {open && (openLeave ? <ExpandLessIcon sx={{ color: "white" }} /> : <ExpandMoreIcon sx={{ color: "white" }} />)}
             </ListItemButton>
           </ListItem>
-          {openLeave && (
+          {open && (
             <Collapse in={openLeave} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/leave/apply")}>
+                <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/leave/overview")}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
-                      justifyContent: "center",
+                      justifyContent: open ? "initial" : "center",
                       px: 2.5,
                       transition: "transform 0.4s ease-in-out",
                       "&:hover": {
@@ -521,14 +519,14 @@ export default function Sidenav() {
                       },
                     }}
                   >
-                    <ListItemText primary="Leave Apply" sx={{ color: "white", marginLeft: "50px" }} />
+                    <ListItemText primary="Overview" sx={{ opacity: open ? 1 : 0, color: "white", marginLeft: "50px" }} />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/leave/requests")}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
-                      justifyContent: "center",
+                      justifyContent: open ? "initial" : "center",
                       px: 2.5,
                       transition: "transform 0.4s ease-in-out",
                       "&:hover": {
@@ -537,17 +535,17 @@ export default function Sidenav() {
                       },
                     }}
                   >
-                    <ListItemText primary="Leave Requests" sx={{ color: "white", marginLeft: "49px" }} />
+                    <ListItemText primary="Requests" sx={{ opacity: open ? 1 : 0, color: "white", marginLeft: "50px" }} />
                   </ListItemButton>
                 </ListItem>
               </List>
             </Collapse>
           )}
-          <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/reports")}>
+          <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/info")}>
             <ListItemButton
               sx={{
                 minHeight: 48,
-                justifyContent: "center",
+                justifyContent: open ? "initial" : "center",
                 px: 2.5,
                 transition: "transform 0.4s ease-in-out",
                 "&:hover": {
@@ -560,43 +558,41 @@ export default function Sidenav() {
                 sx={{
                   color: "white",
                   minWidth: 0,
-                  mr: "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <ArticleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Reports" sx={{ color: "white" }} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={() => navigate("/")}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: "center",
-                px: 2.5,
-                transition: "transform 0.4s ease-in-out",
-                "&:hover": {
-                  backgroundColor: "#7f7f7f",
-                  transform: "scale(1.10)",
-                },
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  color: "white",
-                  minWidth: 0,
-                  mr: "auto",
+                  mr: open ? 3 : "auto",
                   justifyContent: "center",
                 }}
               >
                 <InfoIcon />
               </ListItemIcon>
-              <ListItemText primary="Helpdesk" sx={{ color: "white" }} />
+              <ListItemText primary="Info" sx={{ opacity: open ? 1 : 0, color: "white" }} />
             </ListItemButton>
           </ListItem>
         </List>
       </TemporaryDrawer>
+
+      {/* Main Content */}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          bgcolor: theme.palette.background.default,
+          p: 3,
+          transition: theme.transitions.create("margin", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+          marginLeft: `-${drawerWidth}px`,
+          ...(open && {
+            transition: theme.transitions.create("margin", {
+              easing: theme.transitions.easing.easeOut,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+            marginLeft: 0,
+          }),
+        }}
+      >
+        {/* Add your content here */}
+      </Box>
     </Box>
   );
 }

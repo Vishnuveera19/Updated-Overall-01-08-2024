@@ -1,178 +1,212 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Container, Button,Box } from '@mui/material';
-import ArticleIcon from '@mui/icons-material/Article';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import PolicyIcon from '@mui/icons-material/Policy';
-import FormIcon from '@mui/icons-material/FormatListNumbered';
-import NoteIcon from '@mui/icons-material/Note';
-import PaidIcon from '@mui/icons-material/Paid';
-import PaymBranch from "../../images/paym-branch-icon.png";
-import PaymEmplo from "../../images/paym-employee-icon.png";
-import PaymDep from "../../images/paym-department-icon.png";
-import PaymDesig from "../../images/paym-desiganation-icon.png";
+import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
+import { Grid, Typography, Container, Button, Box, TextField, ToggleButton, ToggleButtonGroup, TableHead, Table, TableBody, TableRow, Paper, TableCell, TableContainer } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import Sidenav from '../Home Page/Sidenav';
+import Navbar from '../Home Page/Navbar';
 
-import PaymCompany from "../../images/paym-company-icon.png";
-import shiftreee from "../../images/shiftrelated-icons.jpeg";
-import setup from "../../images/setting-icon-png-24.jpg";
-import { Navigate, useNavigate } from 'react-router-dom';
-import Sidenav from "../Home Page/Sidenav";
-import Navbar from "../Home Page/Navbar"
-import {Link} from '@mui/material';
+const RootContainer = styled(Container)(({ theme }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+}));
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-    },
-    title: {
-        fontWeight: 'bold',
-        marginBottom: theme.spacing(2),
-      
-    },
-    item: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        borderRadius: 8,
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-        backgroundColor: '#fff',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    icon: {
-        fontSize: '3rem',
-    },
-    textContainer: {
-        flex: 1,
-        marginLeft: theme.spacing(2),
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    text: {
-        marginRight: theme.spacing(2),
-        fontSize: "18px",
-        
-        
-    },
-    button: {
-        backgroundColor: "none",
-        color: 'blue',
-       
+const TitleTypography = styled(Typography)(({ theme }) => ({
+    fontWeight: 'bold',
+    marginBottom: theme.spacing(2),
+}));
+
+const CustomButton = styled(Button)(({ theme }) => ({
+    margin: theme.spacing(1),
+    backgroundColor: 'none',
+    color: 'white',
+}));
+
+const ToggleContainer = styled('div')(({ theme }) => ({
+    marginBottom: theme.spacing(3),
+    display: 'flex',
+    justifyContent: 'center',
+}));
+
+const TextFieldGroup = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    gap: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+}));
+
+const AddButtonContainer = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: theme.spacing(2),
+}));
+
+const CustomToggleButton = styled(ToggleButton)(({ theme }) => ({
+    '&.Mui-selected': {
+        borderBottom: `3px solid ${theme.palette.primary.main}`,
+        color: theme.palette.primary.main,
     },
 }));
 
+const ApplySection = () => {
+    const [fields, setFields] = useState([{ id: 1 }]);
+
+    const handleAddFields = () => {
+        setFields([...fields, { id: fields.length + 1 }]);
+    };
+
+    return (
+        <Box>
+        <Box >
+            {fields.map((field) => (
+               
+                <TextFieldGroup key={field.id}>
+                    <TextField label="Average Monthly Income" variant="outlined" fullWidth />
+                    <TextField label="Annual Basis" variant="outlined" fullWidth />
+                    <TextField label="Half Yearly Basis" variant="outlined" fullWidth />
+                </TextFieldGroup>
+            ))}
+            <AddButtonContainer>
+                <CustomButton variant="contained" onClick={handleAddFields}>
+                    Add More
+                </CustomButton>
+                <CustomButton variant="contained" onClick={handleAddFields}>
+                    Save
+                </CustomButton>
+            </AddButtonContainer>
+        </Box>
+        </Box>
+    );
+};
+
+const sampleTables = {
+    apply: <ApplySection />,
+    pending: (
+        <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell align='center'>Pending ID</TableCell>
+                        <TableCell align='center'>Name</TableCell>
+                        <TableCell align='center'>Date</TableCell>
+                        <TableCell align='center'>Status</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow>
+                        <TableCell component="th" scope="row" align='center'>
+                            1
+                        </TableCell>
+                        <TableCell align='center'>Jane Smith</TableCell>
+                        <TableCell align='center'>2024-07-29</TableCell>
+                        <TableCell align='center'>Approved</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </TableContainer>
+    ),
+    history: (
+        <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell align='center'>History ID</TableCell>
+                        <TableCell align='center'>Name</TableCell>
+                        <TableCell align='center'>Date</TableCell>
+                        <TableCell align='center'>Status</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow>
+                        <TableCell component="th" scope="row" align='center'>
+                            1
+                        </TableCell>
+                        <TableCell align='center'>Bob Johnson</TableCell>
+                        <TableCell align='center'>2024-07-29</TableCell>
+                        <TableCell align='center'>Rejected</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </TableContainer>
+    ),
+    AttBonus: (
+        <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell align='center'>History ID</TableCell>
+                        <TableCell align='center'>Name</TableCell>
+                        <TableCell align='center'>Date</TableCell>
+                        <TableCell align='center'>Status</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow>
+                        <TableCell component="th" scope="row" align='center'>
+                            1
+                        </TableCell>
+                        <TableCell align='center'>Bob Johnson</TableCell>
+                        <TableCell align='center'>2024-07-29</TableCell>
+                        <TableCell align='center'>Rejected</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </TableContainer>
+    ),
+};
+
 const SlabTemplate = () => {
-    const navigate =useNavigate();
-    const classes = useStyles();
-    const documents = [
-        {
-            title: "Profession Tax",
-            icon: <PaidIcon />,
-            buttonLabel:"View",
-            onClick: () => navigate("/CompanyForm01"),
-          },
-        {
-            title: "OverTime",
-            icon: <img src={PaymBranch} width={40} height={40} />,
-            buttonLabel:"View",
-            onClick: () => navigate("/PayBranchForm01"),
-          },
-          {
-            title: "IncomeTax",
-            icon: <img src={PaymEmplo} width={40} height={40} />,
-            buttonLabel:"View",
-            onClick: () => navigate("/PaymEmployeeMasters"),
-          },
-        //   {
-        //     title: "Department",
-        //     icon: <img src={PaymDep} width={40} height={40} />,
-        //     buttonLabel:"View",
-        //     onClick: () => navigate("/DepartmentMasters"),
-        //   },
-        //   {
-        //     title: "Designation",
-        //     icon: <img src={PaymDesig} width={40} height={40} />,
-        //     buttonLabel:"View",
-        //     onClick: () => navigate("/DesignationMasters"),
-        //   },
-        //   {
-        //     title: "Shift Related",
-        //     icon: <img src={shiftreee} width={40} height={40} />,
-        //     buttonLabel:"View",
-        //     onClick: () => navigate("/ShiftMasters"),
-        //   },
-        //   {
-        //     title: "Earn & Deduct",
-        //     icon: <img src={PaymCompany} width={40} height={40} />,
-        //     buttonLabel:"View",
-        //     onClick: () => navigate("/EarnDeductMasters"),
-        //   },
-         
-        //   {
-        //     title: "Group",
-        //     icon: <img src={PaymDep} width={40} height={40} />,
-        //     buttonLabel:"View",
-        //     onClick: () => navigate("/Group"),
-        //   },
-         
-         
-        //   {
-        //     title: "Set up",
-        //     icon: <img src={setup} width={40} height={40} />,
-        //     buttonLabel:"View",
-        //     onClick: () => navigate("/Setup"),
-        //   },
-    ];
+    const navigate = useNavigate();
+    const [selected, setSelected] = useState('pending');
+
+    const handleToggle = (event, newSelected) => {
+        if (newSelected !== null) {
+            setSelected(newSelected);
+        }
+    };
 
     return (
         <Grid container>
-        {/* Navbar and Sidebar */}
-        <Grid item xs={12}>
-          <div style={{ backgroundColor: "#fff" }}>
-            <Navbar />
-            <Box height={30} />
-            <Box sx={{ display: "flex" }}>
-              <Sidenav />
-              <Grid item xs={12} sm={10} md={9} lg={8} xl={7} style={{ marginLeft: "auto", marginRight: "auto", margin: "100px 50px 50px 50px"  }}>
-  
-        <Container maxWidth="lg" className={classes.root}>
-            <Typography variant="h4" className={classes.title}>
-                We've got it sorted for you!
-            </Typography>
-            <Typography variant="body1">
-                This is a Masters Setion.. Here you can predefine some of the details and use it later in the setup section..
-            </Typography>
-            <Grid container spacing={3} mt={3}>
-                {documents.map((doc, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index}>
-                        <div className={classes.item}>
-                            {doc.icon}
-                            <div className={classes.textContainer}>
-                                <Typography variant="h6" margin={'auto'} className={classes.text}>
-                                    {doc.title}
+            {/* Navbar and Sidebar */}
+            <Grid item xs={12}>
+                <div style={{ backgroundColor: '#fff' }}>
+                    <Navbar />
+                    <Box height={30} />
+                    <Box sx={{ display: 'flex' }}>
+                        <Sidenav />
+                        <Grid item xs={12} sm={10} md={9} lg={8} xl={7} sx={{ marginLeft: 'auto', marginRight: 'auto', margin: '100px 50px 50px 50px' }}>
+                            <RootContainer maxWidth="lg">
+                                <TitleTypography variant="h4" gutterBottom>
+                                    We've got it sorted for you!
+                                </TitleTypography>
+                                <Typography variant="body1" gutterBottom>   
+                                    This is a Slab Section.. Here you can predefine some of the details and use it later in the setup section..
                                 </Typography>
-                                
-
-<Link onClick={doc.onClick} href={doc.href} target="_blank" rel="noopener" >
-  <Button
-    className={classes.button}
-    color="primary"
-  >
-    {doc.buttonLabel}
-  </Button>
-</Link>
-                            </div>
-                        </div>
-                    </Grid>
-                ))}
+                                <ToggleContainer>
+                                    <ToggleButtonGroup
+                                        value={selected}
+                                        exclusive
+                                        onChange={handleToggle}
+                                        aria-label="text alignment"
+                                    >
+                                        <CustomToggleButton value="apply" aria-label="apply">
+                                            Professional Tax
+                                        </CustomToggleButton>
+                                        <CustomToggleButton value="pending" aria-label="pending">
+                                            OverTime
+                                        </CustomToggleButton>
+                                        <CustomToggleButton value="history" aria-label="history">
+                                            Income Tax
+                                        </CustomToggleButton>
+                                        <CustomToggleButton value="AttBonus" aria-label="AttBonus">
+                                            Attendance Bonus
+                                        </CustomToggleButton>
+                                    </ToggleButtonGroup>
+                                </ToggleContainer>
+                                {sampleTables[selected]}
+                            </RootContainer>
+                        </Grid>
+                    </Box>
+                </div>
             </Grid>
-        </Container>
-        </Grid>
-        </Box>
-        </div>
-        </Grid>
         </Grid>
     );
 };

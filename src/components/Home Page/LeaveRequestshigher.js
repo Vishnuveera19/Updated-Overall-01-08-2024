@@ -18,6 +18,8 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/material/styles";
+import Sidenav from "./Sidenav";
+import Navbar from "./Navbar";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   "& .MuiOutlinedInput-root": {
@@ -52,6 +54,13 @@ const LeaveApplyRequestHigher = () => {
   };
 
   return (
+    <Grid item xs={12}>
+        <div style={{ backgroundColor: "#fff" }}>
+          <Navbar />
+          <Box height={30} />
+          <Box sx={{ display: "flex" }}>
+            <Sidenav />
+            <Grid item xs={12} sm={10} md={9} lg={8} xl={7} style={{ marginLeft: "auto", marginRight: "auto", margin: "100px 50px 50px 50px"  }}>
     <Paper
       sx={{
         p: 4,
@@ -137,12 +146,18 @@ const LeaveApplyRequestHigher = () => {
             //   endAdornment: (
             //     <InputAdornment position="end">
             //       <IconButton>
+            //         <IconButton color="primary" component="label">
+                     
+            //         </IconButton>
             //         <CalendarTodayIcon />
             //       </IconButton>
             //     </InputAdornment>
             //   ),
             // }}
           />
+           <Typography>Attach File</Typography>
+                      <AttachFileIcon sx={{ ml: 1 }} />
+                      <input type="file" hidden />
         </Grid>
         <Grid item xs={12}>
           <Typography variant="subtitle1" gutterBottom>
@@ -185,11 +200,6 @@ const LeaveApplyRequestHigher = () => {
           container
           justifyContent="space-between"
           alignItems="center">
-          <IconButton color="primary" component="label">
-            <Typography>Attach File</Typography>
-            <AttachFileIcon sx={{ ml: 1 }} />
-            <input type="file" hidden />
-          </IconButton>
           <Button variant="contained" color="success" sx={{ mt: 2 }}>
             Send
             <SendIcon sx={{ ml: 1 }} />
@@ -197,6 +207,10 @@ const LeaveApplyRequestHigher = () => {
         </Grid>
       </Grid>
     </Paper>
+    </Grid>
+    </Box>
+    </div>
+    </Grid>
   );
 };
 

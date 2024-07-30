@@ -11,6 +11,7 @@ import {
   Typography,
   CardContent,
   TextField,
+  Box
 } from "@mui/material";
 import {
   PAYMPF,
@@ -23,6 +24,8 @@ import {
 } from "../../serverconfiguration/controllers";
 import { ServerConfig } from "../../serverconfiguration/serverconfig";
 import { postRequest, getRequest } from "../../serverconfiguration/requestcomp";
+import Sidenav from "../Home Page/Sidenav";
+import Navbar from "../Home Page/Navbar";
 
 function AddInfos() {
   const [employeegrp, setemployeegrp] = useState([]);
@@ -263,6 +266,13 @@ function AddInfos() {
   }
 
   return (
+    <Grid item xs={12}>
+        <div style={{ backgroundColor: "#fff" }}>
+          <Navbar />
+          <Box height={30} />
+          <Box sx={{ display: "flex" }}>
+            <Sidenav />
+            <Grid item xs={12} sm={10} md={9} lg={8} xl={7} style={{ marginLeft: "auto", marginRight: "auto", margin: "100px 50px 50px 50px"  }}>
     <div>
       <Grid style={{ padding: "80px 5px0 5px" }}>
         <Card style={{ maxWidth: 1000, margin: "0 auto" }}>
@@ -1237,6 +1247,10 @@ function AddInfos() {
         </Card>
       </Grid>
     </div>
+    </Grid>
+    </Box>
+    </div>
+    </Grid>
   );
 }
 

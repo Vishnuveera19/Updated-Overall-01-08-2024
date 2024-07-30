@@ -19,6 +19,8 @@ import {
 import { REPORTS, SAVE } from "../../serverconfiguration/controllers";
 import { ServerConfig } from "../../serverconfiguration/serverconfig";
 import { Navigate, useNavigate } from "react-router-dom";
+import Sidenav from "../Home Page/Sidenav";
+import Navbar from "../Home Page/Navbar";
 
 function GroupShift() {
   const navigate = useNavigate();
@@ -91,6 +93,13 @@ function GroupShift() {
   }
 
   return (
+    <Grid item xs={12}>
+        <div style={{ backgroundColor: "#fff" }}>
+          <Navbar />
+          <Box height={30} />
+          <Box sx={{ display: "flex" }}>
+            <Sidenav />
+            <Grid item xs={12} sm={10} md={9} lg={8} xl={7} style={{ marginLeft: "auto", marginRight: "auto", margin: "100px 50px 50px 50px"  }}>
     <Box
       sx={{
         border: "1px solid #ccc",
@@ -172,6 +181,10 @@ function GroupShift() {
         </Button>
       </Box>
     </Box>
+    </Grid>
+    </Box>
+    </div>
+    </Grid>
   );
 }
 

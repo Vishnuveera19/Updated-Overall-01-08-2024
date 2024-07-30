@@ -42,7 +42,7 @@ export default function HomePage() {
     const cardItems = [
         { text: "Masters", icon: <SchoolIcon /> ,onclick : () => navigate('/Masters')  },
         { text: "Setup", icon: <WorkIcon /> },
-        { text: "Attendance", icon: <TodayIcon /> },
+        { text: "Attendance", icon: <TodayIcon />, onclick : () => navigate('/Attendance') },
         { text: "Leave", icon: <AssignmentIcon /> },
         { text: "Shift", icon: <AccessTimeIcon /> },
         { text: "Payslip", icon: <ReceiptIcon /> },
