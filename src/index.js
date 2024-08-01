@@ -211,6 +211,9 @@ import LeaveRequestEmployee from "./components/Home Page/LeaveRequestEmployee";
 import CompanyMasters from "./components/Masters/CompanyMasters";
 import AttendanceHome from "./components/Home Page/Attendance";
 
+import SpreadGrid1 from "./components/SpreadGrid";
+import MySpreadGrid from "./components/SpreadGrid";
+
 const store = createStore(entityReducer);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -246,6 +249,7 @@ root.render(
           <Route path="/AssetsTable" element={<AssetsTable />}></Route>
           <Route path="/EarnDeductTable" element={<EarnDeductTable />}></Route>
           <Route path="/PaymBranchtable" element={<PaymBranchtable />}></Route>
+          <Route path="/SpreadGrid" element={<MySpreadGrid/>}></Route>
           {/* <Route path="/layout" element={<Layoutcomp />} />
           <Route path="/att" element={<BasicDateCalendar />} />
           <Route path="/home" element={<ServiceCard />}></Route>
